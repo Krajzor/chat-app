@@ -1,0 +1,8 @@
+.a {
+    display: grid;
+    height: 100vh;
+}
+
+.b {
+    background-color: red;
+}
