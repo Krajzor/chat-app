@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./styles/general.css">
+        <link rel="stylesheet" href="./styles/contacts.css">
+        <link rel="stylesheet" href="./styles/chat.css">
+        <link rel="stylesheet" href="./styles/login.css">
+        <link rel="stylesheet" href="./styles/scrollbar.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div class="login-screen">
+            <h2>Login</h2>
+            <input class="username" placeholder="Username">
+            <input class="password" type="password" placeholder="Password">
+            <button class="login-button">Login</button>
+            <p class="login-error"></p>
+        </div>
+
+        <div class="main">
+            <div class="contacts-section">
+                <div class="contacts-options">
+                    <input class="contacts-search" type="text" placeholder="Search your contacts">
+                </div>
+                <div class="contacts-container"></div>
+            </div>
+            <div class="chat-container">
+                <div class="chat-placeholder-container">
+                    <div class="chat-placeholder">Pick a contact</div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="module" src="./login.js"></script>
+</html>
