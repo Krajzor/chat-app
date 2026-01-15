@@ -1,14 +1,27 @@
-import { messageInputListener } from "./messageInputListener.js";
+import { createMessage } from './createMessage.js';
+import { getCurrentUser } from './authState.js';
+import { scrollToBottom, sentOrReceived } from './styles/utils.js';
+import { socket } from './socket.js';
 
-const currentUser = JSON.parse(localStorage.getItem('user'));
-const currentUserId = currentUser?.userId;
+export async function displayChat(conversationId) {
 
-function scrollToBottom(page) {
-    page.scrollTop = page.scrollHeight;
-}
+    socket.emit('joinConversation', conversationId);
 
-export async function displayChat(messages) {
+    async function getMessages(conversationId) {
+        const res = await fetch(
+            `http://localhost:5000/api/messages/${conversationId}`
+        );
+        const messages = await res.json();
+        return messages;
+    }
     
+    socket.on('newMessage', (message) => { 
+        appendMessage(message); 
+    });
+
+    const messages = await getMessages(conversationId);
+
+    const currentUserId = getCurrentUser().userId;
     const chatContainer = document.querySelector('.chat-container');
 
     const pfpFileName = 'gonitramwaj.jpg';
@@ -39,24 +52,35 @@ export async function displayChat(messages) {
         </div>
     `;
 
-    
-
     chatContainer.innerHTML = chatContainerHTML;
 
-    messageInputListener();
+    function appendMessage(message) {
+        const messagesContainer = document.querySelector('.chat-messages-container');
+
+        messagesContainer.innerHTML += `<div class="chat-message ${sentOrReceived(message, currentUserId)}">${message.text}</div>`;
+        scrollToBottom(messagesContainer);
+    }
+
+
+    const inputObject = document.querySelector('.chat-input');
+
+    inputObject.addEventListener('keydown', async (e) => {
+        if (e.key === 'Enter') {
+
+            const message = await createMessage(inputObject.value.trim());
+
+            inputObject.value = '';
+
+        } 
+    });
 
     const messagesContainer = document.querySelector('.chat-messages-container');
     let messagesContainerHTMl = '';
 
-    function sentOrReceived(message) {
-        if (message.senderId === currentUserId) {
-            return 'sent';
-        }
-        return 'received';
-    }
+    
 
     messages.forEach((message) => {
-        messagesContainerHTMl += `<div class="chat-message ${sentOrReceived(message)}">${message.text}</div>`;
+        messagesContainerHTMl += `<div class="chat-message ${sentOrReceived(message, currentUserId)}">${message.text}</div>`;
     });
 
     messagesContainer.innerHTML = messagesContainerHTMl;
@@ -64,9 +88,3 @@ export async function displayChat(messages) {
     scrollToBottom(messagesContainer);
 }
 
-export function appendMessage(message) {
-    const messagesContainer = document.querySelector('.chat-messages-container');
-
-    messagesContainer.innerHTML += `<div class="chat-message ${message.senderId === currentUserId ? 'sent': 'received'}">${message.text}</div>`
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-}

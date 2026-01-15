@@ -1,5 +1,9 @@
-import { renderApp } from './pickConversation.js';
+import { generateConversationsHTML } from './getConversations.js';
+import { socket } from './socket.js';
 
-export function startApp() {
-    renderApp();
+export function startApp(user) {
+    socket.auth = { userId: user.userId };
+    socket.connect();
+
+    generateConversationsHTML(user);
 }

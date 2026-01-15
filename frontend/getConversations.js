@@ -1,4 +1,4 @@
-import { getMessages } from './getMessages.js';
+import { displayChat} from './displayChat.js';
 
 export async function getConversations(userID) {
     const res = await fetch(`http://localhost:5000/api/conversations/user/${userID}`);
@@ -6,9 +6,8 @@ export async function getConversations(userID) {
     return await res.json();
 }
 
-export async function generateConversationsHTML(userID) {
-    
-    const conversationsToAppend = await getConversations(userID.userId);
+export async function generateConversationsHTML(user) {
+    const conversationsToAppend = await getConversations(user.userId);
 
     let contactsHTML = '';
     conversationsToAppend.forEach((conversation) => {
@@ -28,7 +27,7 @@ export async function generateConversationsHTML(userID) {
     const conversations = document.querySelectorAll('.contact');
     conversations.forEach((conversation) => {
         conversation.addEventListener('click', () => {
-            getMessages(conversation.dataset.id);
+            displayChat(conversation.dataset.id);
         });
     });
     
