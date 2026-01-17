@@ -4,7 +4,7 @@ export async function createMessage(text, conversationId, senderId) {
 
     if (!text) return;
 
-    const res = await fetch('http://localhost:5000/api/messages', {
+    const res = await fetch('/api/messages', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

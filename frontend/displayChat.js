@@ -13,7 +13,7 @@ export async function displayChat(conversationId) {
 
     async function getMessages(conversationId) {
         const res = await fetch(
-            `http://localhost:5000/api/messages/${conversationId}`
+            `/api/messages/${conversationId}`
         );
         const messages = await res.json();
         return messages;
@@ -30,7 +30,7 @@ export async function displayChat(conversationId) {
     const chatContainer = document.querySelector('.chat-container');
 
     async function getConversation(conversationId) {
-        const res = await fetch(`http://localhost:5000/api/conversations/${conversationId}`);
+        const res = await fetch(`/api/conversations/${conversationId}`);
         const conversation = await res.json();
         return conversation;
     }

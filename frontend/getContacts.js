@@ -1,7 +1,7 @@
 import { displayChat} from './displayChat.js';
 
 export async function getContacts(userID) {
-    const res = await fetch(`http://localhost:5000/api/conversations/user/${userID}`);
+    const res = await fetch(`/api/conversations/user/${userID}`);
 
     return await res.json();
 }
