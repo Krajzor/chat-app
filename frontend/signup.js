@@ -1,30 +1,31 @@
 import { setCurrentUser } from "./authState.js";
 
-export function initLogin(onLoginSuccess) {
+export function initSignup(onLoginSuccess) {
     const loginScreen = document.querySelector('.login-screen');
     const mainScreen = document.querySelector('.main');
-    const loginButton = document.querySelector('.login-button');
+    const signupButton = document.querySelector('.signup-button');
 
     loginScreen.style.display = 'flex';
     mainScreen.style.display = 'none';
 
-    const newLoginButton = loginButton.cloneNode(true);
-    loginButton.replaceWith(newLoginButton);
+    const newSignupButton = signupButton.cloneNode(true);
+    signupButton.replaceWith(newSignupButton);
 
-    newLoginButton.addEventListener('click', async () => {
+    newSignupButton.addEventListener('click', async () => {
         const username = document.querySelector('.username').value;
         const password = document.querySelector('.password').value;
         const errorElement = document.querySelector('.login-error');
 
         try {
-            const res = await fetch('http://localhost:5000/api/auth/login', {
+            const res = await fetch('http://localhost:5000/api/auth/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })
             });
 
             if (!res.ok) {
-                errorElement.textContent = 'Invalid username or password';
+                const errorData = await res.json();
+                errorElement.textContent = errorData.error;
                 return;
             }
 
@@ -35,13 +36,9 @@ export function initLogin(onLoginSuccess) {
             mainScreen.style.display = 'grid';
 
             onLoginSuccess(user);
-            
-
         } catch (err) {
             errorElement.textContent = 'Server error';
         }
     });
 }
-
-
 

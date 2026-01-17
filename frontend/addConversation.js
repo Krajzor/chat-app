@@ -3,6 +3,7 @@ import { generateContactsHTML } from "./getContacts.js";
 import { displayChat } from "./displayChat.js";
 
 export async function addConversation() {
+    
     const username = prompt('Enter username');
     if (!username) return;
 

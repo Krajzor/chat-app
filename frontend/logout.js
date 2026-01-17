@@ -1,4 +1,7 @@
+import { startApp } from "./app.js";
 import { clearCurrentUser } from "./authState.js";
+import { initLogin } from "./login.js";
+import { initSignup } from "./signUp.js";
 import { socket } from "./socket.js";
 
 export function logout() {
@@ -6,6 +9,9 @@ export function logout() {
     if (!logoutButton) return;
 
     clearCurrentUser();
+
+    socket.off();
+    socket.disconnect();
 
     document.querySelector('.main').style.display = 'none';
 
@@ -16,5 +22,9 @@ export function logout() {
 
     document.querySelector('.username').value = '';
     document.querySelector('.password').value = '';
+    
     socket.disconnect();
+
+    initLogin(startApp);
+    initSignup(startApp);
 }

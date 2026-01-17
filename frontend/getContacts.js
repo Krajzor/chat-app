@@ -21,13 +21,14 @@ export async function generateContactsHTML(user) {
 
         const formattedLastSeen = date.toLocaleString();
 
-        
+        const lastMessage = contact.lastMessage.text || '';
+
         return `
             <div class="contact js-contact-${contact._id}" data-id="${contact._id}" data-title="${displayName.toLowerCase()}" ">
                 <div class="contact-pfp-container"><img class="contact-pfp" src="./assets/pfps/${avatar}"></div>
                 <div>
                     <p class="contact-name-container">${displayName}</p>
-                    <p class="contact-last-message-container">${contact.lastMessage.text}</p>
+                    <p class="contact-last-message-container">${lastMessage}</p>
                 </div>
                 <div class="contact-last-seen-container">${formattedLastSeen}</div>
             </div>
