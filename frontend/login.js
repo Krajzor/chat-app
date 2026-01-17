@@ -1,11 +1,17 @@
 import { setCurrentUser } from "./authState.js";
 
 export function initLogin(onLoginSuccess) {
-    document.querySelector('.login-screen').style.display = 'flex';
-    document.querySelector('.main').style.display = 'none';
+    const loginScreen = document.querySelector('.login-screen');
+    const mainScreen = document.querySelector('.main');
     const loginButton = document.querySelector('.login-button');
 
-    loginButton.addEventListener('click', async () => {
+    loginScreen.style.display = 'flex';
+    mainScreen.style.display = 'none';
+
+    const newLoginButton = loginButton.cloneNode(true);
+    loginButton.replaceWith(newLoginButton);
+
+    newLoginButton.addEventListener('click', async () => {
         const username = document.querySelector('.username').value;
         const password = document.querySelector('.password').value;
         const errorElement = document.querySelector('.login-error');
@@ -13,8 +19,8 @@ export function initLogin(onLoginSuccess) {
         try {
             const res = await fetch('http://localhost:5000/api/auth/login', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({username, password})
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
             });
 
             if (!res.ok) {
@@ -22,19 +28,22 @@ export function initLogin(onLoginSuccess) {
                 return;
             }
 
-            const user = await res.json();
-
-            setCurrentUser(user);
             
-            document.querySelector('.login-screen').style.display = 'none';
-            document.querySelector('.main').style.display = 'grid';
+
+            const user = await res.json();
+            setCurrentUser(user);
+
+            loginScreen.style.display = 'none';
+            mainScreen.style.display = 'grid';
 
             onLoginSuccess(user);
+            
 
-        }   catch (err) {
+        } catch (err) {
             errorElement.textContent = 'Server error';
         }
     });
 }
+
 
 

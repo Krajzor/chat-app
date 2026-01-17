@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="./styles/chat.css">
         <link rel="stylesheet" href="./styles/login.css">
         <link rel="stylesheet" href="./styles/scrollbar.css">
+        <link rel="stylesheet" href="./styles/sidebar.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
@@ -19,9 +20,13 @@
         </div>
 
         <div class="main">
+            <div class="sidebar-section">
+                <div class="sidebar-button add-friend-button"><img class="sidebar-image" src="./assets/icons/addFriendButton.png"></div>
+                <div class="sidebar-button logout-button"><img class="sidebar-image" src="./assets/icons/logout-button.png"></div>
+            </div>
             <div class="contacts-section">
                 <div class="contacts-options">
-                    <input class="contacts-search" type="text" placeholder="Search your contacts">
+                    <input class="contacts-search" type="text" placeholder="Search contacts">
                 </div>
                 <div class="contacts-container"></div>
             </div>

@@ -1,6 +1,6 @@
 import { socket } from "./socket.js";
 
-export async function createMessage(text){
+export async function createMessage(text, conversationId, senderId) {
 
     if (!text) return;
 
@@ -10,8 +10,8 @@ export async function createMessage(text){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            conversationId: '694bc8f729d2c01abd7801a2',
-            senderId: '694bc791e602d354226d9ad8',
+            conversationId,
+            senderId,
             text
         })
 

@@ -9,10 +9,11 @@ const conversationSchema = new mongoose.Schema({
         type: String,
         default: './assets/pfp/default.jpg'
     },
-    participants: {
+    participants: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
+        ref: 'User',
+        required: true
+    }],
     createdAt: {
         type: Date, 
         default: Date.now

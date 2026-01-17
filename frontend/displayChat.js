@@ -3,7 +3,11 @@ import { getCurrentUser } from './authState.js';
 import { scrollToBottom, sentOrReceived } from './styles/utils.js';
 import { socket } from './socket.js';
 
+
+
 export async function displayChat(conversationId) {
+
+    socket.off('newMessage');
 
     socket.emit('joinConversation', conversationId);
 
@@ -21,19 +25,32 @@ export async function displayChat(conversationId) {
 
     const messages = await getMessages(conversationId);
 
-    const currentUserId = getCurrentUser().userId;
+    const currentUser = getCurrentUser();
+    const currentUserId = currentUser.userId;
     const chatContainer = document.querySelector('.chat-container');
 
-    const pfpFileName = 'gonitramwaj.jpg';
-    const username = 'gonitramwaj';
-    const lastSeen = 'last seen today at 12:36 PM';
+    async function getConversation(conversationId) {
+        const res = await fetch(`http://localhost:5000/api/conversations/${conversationId}`);
+        const conversation = await res.json();
+        return conversation;
+    }
+
+    const conversation = await getConversation(conversationId);
+    const other = conversation.participants.find(participant => participant._id !== currentUserId)
+    const avatar = other.avatar;
+    const displayName = other.displayName;
+    const lastSeen = other.lastSeen;
+    const date = new Date(lastSeen);
+
+    const formattedLastSeen = date.toLocaleString();
+    
 
     let chatContainerHTML = `
         <div class="chat-header">
-            <div class="chat-icon-container"><img class="chat-icon" src="./assets/pfps/${pfpFileName}"></div>
+            <div class="chat-icon-container"><img class="chat-icon" src="./assets/pfps/${avatar}"></div>
             <div class="chat-details">
-                <div class="chat-name">${username}</div>
-                <div class="chat-last-seen">${lastSeen}</div>
+                <div class="chat-name">${displayName}</div>
+                <div class="chat-last-seen">Last seen: ${formattedLastSeen}</div>
             </div>
             <div class="chat-functions">
                 <div class="chat-call"><img class="chat-icon" src="./assets/icons/callButton.png"></div>
@@ -64,13 +81,15 @@ export async function displayChat(conversationId) {
 
     const inputObject = document.querySelector('.chat-input');
 
-    inputObject.addEventListener('keydown', async (e) => {
+    const newInputObject = inputObject.cloneNode(true);
+    inputObject.replaceWith(newInputObject);
+    
+    newInputObject.addEventListener('keydown', async (e) => {
         if (e.key === 'Enter') {
+            
+            await createMessage(newInputObject.value.trim(), conversationId, currentUserId);
 
-            const message = await createMessage(inputObject.value.trim());
-
-            inputObject.value = '';
-
+            newInputObject.value = '';
         } 
     });
 

@@ -18,6 +18,9 @@ const userSchema = new mongoose.Schema({
     lastSeen: {
         type: Date,
         default: Date.now
+    },
+    avatar: {
+        type: String
     }
 });
 
