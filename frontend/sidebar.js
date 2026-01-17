@@ -1,5 +1,5 @@
-import { addConversation } from "./addConversation.js";
-import { logout } from "./logout.js";
+import { addConversation } from "/addConversation.js";
+import { logout } from "/logout.js";
 
 export function initSidebar() {
     const addFriendBtn = document.querySelector('.add-friend-button');

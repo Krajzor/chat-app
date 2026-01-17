@@ -1,4 +1,4 @@
-import { displayChat} from './displayChat.js';
+import { displayChat} from '/displayChat.js';
 
 export async function getContacts(userID) {
     const res = await fetch(`/api/conversations/user/${userID}`);
@@ -25,7 +25,7 @@ export async function generateContactsHTML(user) {
 
         return `
             <div class="contact js-contact-${contact._id}" data-id="${contact._id}" data-title="${displayName.toLowerCase()}" ">
-                <div class="contact-pfp-container"><img class="contact-pfp" src="./assets/pfps/${avatar}"></div>
+                <div class="contact-pfp-container"><img class="contact-pfp" src="/assets/pfps/${avatar}"></div>
                 <div>
                     <p class="contact-name-container">${displayName}</p>
                     <p class="contact-last-message-container">${lastMessage}</p>

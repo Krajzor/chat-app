@@ -1,6 +1,6 @@
-import { getCurrentUser } from "./authState.js";
-import { generateContactsHTML } from "./getContacts.js";
-import { displayChat } from "./displayChat.js";
+import { getCurrentUser } from "/authState.js";
+import { generateContactsHTML } from "/getContacts.js";
+import { displayChat } from "/displayChat.js";
 
 export async function addConversation() {
     

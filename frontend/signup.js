@@ -1,4 +1,4 @@
-import { setCurrentUser } from "./authState.js";
+import { setCurrentUser } from "/authState.js";
 
 export function initSignup(onLoginSuccess) {
     const loginScreen = document.querySelector('.login-screen');

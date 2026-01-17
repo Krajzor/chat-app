@@ -1,7 +1,7 @@
-import { initLogin } from './login.js';
-import { getCurrentUser } from './authState.js';
-import { startApp } from './app.js';
-import { initSignup } from './signUp.js';
+import { initLogin } from '/login.js';
+import { getCurrentUser } from '/authState.js';
+import { startApp } from '/app.js';
+import { initSignup } from '/signup.js';
 
 function initApp(){
     const user = getCurrentUser();

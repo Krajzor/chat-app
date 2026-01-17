@@ -1,7 +1,7 @@
-import { createMessage } from './createMessage.js';
-import { getCurrentUser } from './authState.js';
-import { scrollToBottom, sentOrReceived } from './styles/utils.js';
-import { socket } from './socket.js';
+import { createMessage } from '/createMessage.js';
+import { getCurrentUser } from '/authState.js';
+import { scrollToBottom, sentOrReceived } from '/utils.js';
+import { socket } from '/socket.js';
 
 
 
@@ -47,25 +47,25 @@ export async function displayChat(conversationId) {
 
     let chatContainerHTML = `
         <div class="chat-header">
-            <div class="chat-icon-container"><img class="chat-icon" src="./assets/pfps/${avatar}"></div>
+            <div class="chat-icon-container"><img class="chat-icon" src="/assets/pfps/${avatar}"></div>
             <div class="chat-details">
                 <div class="chat-name">${displayName}</div>
                 <div class="chat-last-seen">Last seen: ${formattedLastSeen}</div>
             </div>
             <div class="chat-functions">
-                <div class="chat-call"><img class="chat-icon" src="./assets/icons/callButton.png"></div>
-                <div class="chat-search"><img class="chat-icon" src="./assets/icons/searchButton.png"></div>
-                <div class="chat-options"><img class="chat-icon" src="./assets/icons/optionsButton.png"></div>
+                <div class="chat-call"><img class="chat-icon" src="/assets/icons/callButton.png"></div>
+                <div class="chat-search"><img class="chat-icon" src="/assets/icons/searchButton.png"></div>
+                <div class="chat-options"><img class="chat-icon" src="/assets/icons/optionsButton.png"></div>
             </div>
         </div>
         <div class="chat-messages-container">
             
         </div>
         <div class="chat-input-container">
-            <div class="chat-input-icon-container"><img class="chat-input-icon" src="assets/icons/attachButton.png"></div>
-            <div class="chat-input-icon-container"><img class="chat-input-icon" src="assets/icons/stickersButton.png"></div>
+            <div class="chat-input-icon-container"><img class="chat-input-icon" src="/assets/icons/attachButton.png"></div>
+            <div class="chat-input-icon-container"><img class="chat-input-icon" src="/assets/icons/stickersButton.png"></div>
             <input class="chat-input" type="text" placeholder="Type a message...">
-            <div class="chat-input-icon-container"><img class="chat-input-icon" src="assets/icons/voiceSearchButton.png"></div>
+            <div class="chat-input-icon-container"><img class="chat-input-icon" src="/assets/icons/voiceSearchButton.png"></div>
         </div>
     `;
 

@@ -1,8 +1,8 @@
-import { startApp } from "./app.js";
-import { clearCurrentUser } from "./authState.js";
-import { initLogin } from "./login.js";
-import { initSignup } from "./signUp.js";
-import { socket } from "./socket.js";
+import { startApp } from "/app.js";
+import { clearCurrentUser } from "/authState.js";
+import { initLogin } from "/login.js";
+import { initSignup } from "/signup.js";
+import { socket } from "/socket.js";
 
 export function logout() {
     const logoutButton = document.querySelector('.logout-button');
